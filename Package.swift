@@ -19,5 +19,6 @@ let package = Package(
         ]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"]),
+        .testTarget(name: "AppFutureTests", dependencies: ["App"])
     ]
 )

@@ -16,5 +16,5 @@ func routes(_ r: Routes, _ c: Container) throws {
     
     let authController = AuthController(db: psql, redis: redis)
     r.post("login", use: authController.login)
-    r.post("me", use: authController.me)
+    r.get("me", use: authController.me)
 }

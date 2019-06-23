@@ -31,6 +31,19 @@ func configure(_ s: inout Services) throws {
     
     //
     s.register(PostgresConfiguration.self) { c in
+        if let databaseURL = URL(string: ProcessInfo.processInfo.environment["DATABASE_URL"] ?? ""), databaseURL.scheme == "postgresql" {
+            guard let hostname = databaseURL.host else { fatalError() }
+            let database = databaseURL.path.replacingOccurrences(of: "/", with: "")
+            
+            return .init(
+                hostname: hostname,
+                port: databaseURL.port ?? 5432,
+                username: databaseURL.user ?? "postgres",
+                password: databaseURL.password ?? "",
+                database: database
+            )
+        }
+        
         return .init(
             hostname: "127.0.0.1",
             port: 5432,
@@ -46,6 +59,22 @@ func configure(_ s: inout Services) throws {
     
     //
     s.register(RedisConfiguration.self) { c in
+        if let redisURL = URL(string: ProcessInfo.processInfo.environment["REDIS_URL"] ?? ""), redisURL.scheme == "redis" {
+            guard let hostname = redisURL.host else { fatalError() }
+            var database: Int? = nil
+            if redisURL.path.count > 0, let databaseInt = Int(redisURL.path.replacingOccurrences(of: "/", with: "")) {
+                database = databaseInt
+            }
+            
+            return .init(
+                hostname: hostname,
+                port: redisURL.port ?? 6379,
+                password: redisURL.password,
+                database: database,
+                logger: nil
+            )
+        }
+        
         return .init(
             hostname: "127.0.0.1",
             port: 6379,
