@@ -1,6 +1,7 @@
 import Vapor
 
-func boot(_ app: Application) throws {
-    try LoggingSystem.bootstrap(from: &app.environment)
-    try app.boot()
+func boot(_ application: Application) throws {
+    let workingDirectory = "/repos/vapor4-example/"
+    let mainConfig = try MainConfig(filePath: workingDirectory + "Config/main.toml")
+    _ = Constants(mainConfig: mainConfig, workingDirectory: workingDirectory)
 }

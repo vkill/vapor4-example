@@ -5,12 +5,17 @@ import Vapor
 fileprivate let eventLoop = MultiThreadedEventLoopGroup(numberOfThreads: 1).next()
 
 final class AppFutureTests: XCTestCase {
-    private static let port = 8080
-    
+    private static var port: Int = 8080
     private static var process: Process!
     private static var pipe: Pipe!
     
     override static func setUp() {
+        let workingDirectory = "/repos/vapor4-example/"
+        let mainConfig = try! MainConfig(filePath: workingDirectory + "Config/main.toml")
+        if let httpServerConfiguration = mainConfig.toHTTPServerConfiguration() {
+            self.port = httpServerConfiguration.port
+        }
+        
         guard #available(macOS 10.13, *) else {
             return
         }
@@ -20,15 +25,7 @@ final class AppFutureTests: XCTestCase {
         let process = Process()
         process.executableURL = runBinary
         process.arguments = ["-e", "test"]
-        var environment: [String:String] = [:]
-        if let databaseURL = ProcessInfo.processInfo.environment["DATABASE_URL"] {
-            environment["DATABASE_URL"] = databaseURL
-        }
-        if let redisURL = ProcessInfo.processInfo.environment["REDIS_URL"] {
-            environment["REDIS_URL"] = redisURL
-        }
-        process.environment = environment
-        
+
         let pipe = Pipe()
         process.standardOutput = pipe
         
