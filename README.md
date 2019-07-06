@@ -3,7 +3,7 @@
 ## Run
 
 ```
-sudo ln -sf /path/vapor4-example /repos
+sudo ln -sf $(pwd) /repos
 
 head /repos/vapor4-example/Sources/App/app.swift
 
