@@ -27,10 +27,19 @@ struct MainConfig: Decodable {
     }
     let redis: Redis?
     
+    struct Openexchangerates: Decodable {
+        let appID: String
+        private enum CodingKeys: String, CodingKey {
+            case appID = "app_id"
+        }
+    }
+    let openexchangerates: Openexchangerates
+    
     private enum CodingKeys: String, CodingKey {
         case httpServer = "http_server"
         case postgres
         case redis
+        case openexchangerates
     }
 }
 
