@@ -3,14 +3,14 @@ import Vapor
 struct Constants {
     static var shared: Constants!
     
-    let mainConfig: MainConfig
     let workingDirectory: String
+    let mainConfig: MainConfig
     
     // your settings
     
-    init(mainConfig: MainConfig, workingDirectory: String) {
-        self.mainConfig = mainConfig
+    init(workingDirectory: String) throws {
         self.workingDirectory = workingDirectory
+        self.mainConfig = try MainConfig(filePath: workingDirectory + "Config/main.toml")
         
         Self.shared = self
     }

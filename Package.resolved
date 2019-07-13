@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/vapor/redis-kit.git",
         "state": {
           "branch": null,
-          "revision": "4f88f929a25d9bbe78432f3132bf38992321f8a3",
-          "version": "1.0.0-alpha.1.1"
+          "revision": "32189e022220d48e7d2adf1140969ab71d550970",
+          "version": "1.0.0-alpha.2"
         }
       },
       {
@@ -182,12 +182,12 @@
         }
       },
       {
-        "package": "swift-redis-nio-client",
-        "repositoryURL": "https://gitlab.com/mordil/swift-redis-nio-client.git",
+        "package": "redi-stack",
+        "repositoryURL": "https://gitlab.com/mordil/swift-redi-stack.git",
         "state": {
           "branch": null,
-          "revision": "79757dc0eb3a447b639447a2a24d4a5f182908c2",
-          "version": "1.0.0-alpha.3"
+          "revision": "ca16cee332e3f54fd3568a33fb650de2f0051ab7",
+          "version": "1.0.0-alpha.5.0.2"
         }
       },
       {
